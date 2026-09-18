@@ -1,0 +1,11 @@
+dependencies:
+
+npm init -y  -->package.json
+
+npm install -D typescript -->install typescript
+
+npm install -D @types/node -->node.js types (fs/promises, path,process etc)
+
+npm install -D vitest -->testing package
+
+npx tsc --int -->tsconfig.json
