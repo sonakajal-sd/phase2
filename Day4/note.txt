@@ -1,0 +1,60 @@
+Day4/
+└── src/
+    ├── server.ts
+    ├── routes/
+    │   └── taskRoutes.ts
+    ├── controllers/
+    │   └── taskController.ts
+    ├── services/
+    │   └── taskService.ts
+    ├── repositories/
+    │   └── taskRepository.ts
+    └── middleware/
+        ├── logger.ts
+        ├── notFound.ts
+        └── errorHandler.ts
+
+
+Flow:
+
+Request
+   ↓
+Logger Middleware
+   ↓
+Route
+   ↓
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+tasks.json
+
+
+step-1
+npm init -y
+npm install express
+npm install -D typescript tsx @types/node @types/express
+
+step-2 (typescript setup)
+npx tsc --init
+
+configuration:
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
+
+see is there any errror:
+npx tsc --noEmit
+

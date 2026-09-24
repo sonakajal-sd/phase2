@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Pure Science",
+    "description": "Student of Science",
+    "priority": "low",
+    "status": "Opened",
+    "assignee": "SonaKajal"
+  },
+  {
+    "id": 2,
+    "title": "Computer Science",
+    "description": "Student of Engineering",
+    "priority": "high",
+    "status": "Closed",
+    "assignee": "Ram"
+  },
+  {
+    "id": 3,
+    "title": "Login issue",
+    "description": "Unable to login",
+    "priority": "low",
+    "status": "Closed",
+    "assignee": null
+  }
+]

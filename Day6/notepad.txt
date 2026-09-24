@@ -1,0 +1,12 @@
+users--->
+id pK
+name 
+email
+
+
+customers-->
+id
+name
+email
+
+
