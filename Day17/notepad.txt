@@ -1,0 +1,87 @@
+DAY16 - WHY "npx prisma generate" FAILED AND HOW IT WAS FIXED
+=============================================================
+
+THE ERROR
+---------
+  npx prisma generate
+  -> CLI.UNKNOWN_COMMAND: No command registered for `generate`
+
+
+ROOT CAUSES (3 problems)
+------------------------
+1) Wrong Prisma CLI version
+   package.json had:  "prisma": "^8.0.0-rc.19"   (a Release Candidate / pre-release)
+   but the client was: "@prisma/client": "^7.10.0"
+   The Prisma 8 RC CLI does not have a `generate` command, and it doesn't
+   match the 7.x client anyway.
+
+2) Missing prisma.config.ts
+   Prisma 7 reads the database URL from prisma.config.ts (project root).
+   Day16 didn't have this file.
+
+3) Old-style `url` in schema.prisma
+   datasource db {
+     provider = "postgresql"
+     url      = env("DATABASE_URL")    <-- not allowed in Prisma 7
+   }
+
+
+HOW IT WAS FIXED
+----------------
+Step 1: Install the CLI version that matches @prisma/client
+   npm install --save-dev prisma@^7.10.0
+
+Step 2: Create prisma.config.ts in the project root (copied from Day14):
+   import "dotenv/config";
+   import { defineConfig } from "prisma/config";
+
+   export default defineConfig({
+     schema: "prisma/schema.prisma",
+     migrations: { path: "prisma/migrations" },
+     datasource: { url: process.env["DATABASE_URL"] },
+   });
+
+Step 3: Remove the `url` line from schema.prisma:
+   datasource db {
+     provider = "postgresql"
+   }
+
+Step 4: Run it again
+   npx prisma generate
+   -> "Generated Prisma Client (7.10.0) to ./generated/prisma"  ✔
+
+
+THINGS TO DO
+------------
+[✔] Keep `prisma`, `@prisma/client` and `@prisma/adapter-pg` on the SAME
+    major version (all 7.x). Check with: npx prisma --version
+[✔] Always have prisma.config.ts in the project root (Prisma 7+).
+[✔] Put DATABASE_URL in .env and load it with `import "dotenv/config"`
+    inside prisma.config.ts.
+[✔] Add your models to schema.prisma, then:
+       npx prisma migrate dev --name init   (creates tables in the DB)
+       npx prisma generate                  (re-run after every schema change)
+[✔] Import the client from the output folder:
+       import { PrismaClient } from "../generated/prisma/client.js";
+    and use the adapter:
+       import { PrismaPg } from "@prisma/adapter-pg";
+       const prisma = new PrismaClient({
+         adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+       });
+[✔] When starting a new day's project, copy the working setup from a
+    previous day (e.g. Day14) instead of guessing versions.
+
+
+THINGS NOT TO DO
+----------------
+[✘] Don't install pre-release versions (anything with -rc, -beta, -alpha,
+    -dev) like prisma@8.0.0-rc.19. Use `npm install -D prisma@7` or the
+    same version as @prisma/client.
+[✘] Don't mix major versions (CLI 8 + client 7 = broken).
+[✘] Don't put `url = env("DATABASE_URL")` in schema.prisma with Prisma 7.
+    The URL goes in prisma.config.ts only.
+[✘] Don't import from "@prisma/client" when the generator has a custom
+    `output` - import from the generated folder instead.
+[✘] Don't forget to re-run `npx prisma generate` after editing the schema
+    (otherwise TypeScript won't see new models/fields).
+[✘] Don't commit .env (it has your DB password) - add it to .gitignore.

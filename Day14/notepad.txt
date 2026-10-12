@@ -1,0 +1,148 @@
+==============================================================
+  DAY 14 - PRISMA SETUP NOTES
+==============================================================
+
+
+1. THE PROBLEM
+--------------------------------------------------------------
+Command that failed:
+
+    npx prisma init --datasource-provider postgresql
+
+Error:
+
+    CLI.INVALID_ARGUMENTS
+    No flag registered for --datasource-provider
+
+
+2. WHY IT FAILED
+--------------------------------------------------------------
+- The project had a PRISMA 8 RELEASE CANDIDATE installed
+  (prisma@8.0.0-rc.19).
+- Prisma 8 REMOVED the --datasource-provider flag.
+  In v8, "prisma init" only creates prisma.config.ts,
+  a postinstall hook and AI-agent skills.
+  It does NOT create a schema or a datasource.
+- Version mismatch:
+      prisma (CLI)        -> 8.0.0-rc.19
+      @prisma/client      -> 7.10.0
+      @prisma/adapter-pg  -> 7.10.0
+  The CLI and the client should always be on the SAME version.
+
+
+3. THE FIX
+--------------------------------------------------------------
+Downgrade the CLI to Prisma 7 (stable, matches the client):
+
+    npm install -D prisma@^7.10.0
+
+Check the versions:
+
+    npx prisma --version
+      prisma         : 7.10.0
+      @prisma/client : 7.10.0
+
+Run the original command again (it works now):
+
+    npx prisma init --datasource-provider postgresql
+
+
+4. WHAT "prisma init" CREATED
+--------------------------------------------------------------
+prisma/schema.prisma
+    - generator client -> provider "prisma-client"
+                          output "../generated/prisma"
+    - datasource db    -> provider "postgresql"
+
+prisma7.config.ts
+    - Loads .env using dotenv
+    - schema path     : prisma/schema.prisma
+    - migrations path : prisma/migrations
+    - database url    : process.env.DATABASE_URL
+
+.gitignore
+    - node_modules
+    - .env               (keeps the DB password out of git)
+    - /generated/prisma
+
+.env
+    - NOT changed. DATABASE_URL already existed
+      (points to day14_db on localhost:5432).
+
+Extra (AI-agent skills, safe to delete if not needed):
+    - .claude/skills/
+    - .agents/skills/
+    - .windsurf/skills/
+    - skills-lock.json
+
+
+5. THINGS TO WATCH OUT FOR
+--------------------------------------------------------------
+a) Config file name
+   The file was created as "prisma7.config.ts".
+   Prisma usually looks for "prisma.config.ts".
+   If later commands can't find the database URL, rename it:
+
+       mv prisma7.config.ts prisma.config.ts
+
+b) Blocked install scripts
+   npm blocked the install scripts for prisma and @prisma/engines.
+   If "prisma generate" or "prisma migrate" fails because
+   engines are missing, run:
+
+       npm approve-scripts prisma @prisma/engines
+       npm rebuild
+
+
+c) Error: "Cannot find name 'process'" in prisma7.config.ts
+   Cause: Node type definitions were missing, and TypeScript 6
+   no longer loads @types/* packages automatically.
+   Fix:
+
+       npm install -D @types/node
+
+   Then add a tsconfig.json with "node" in the types field:
+
+       "compilerOptions": {
+         "types": ["node"],
+         ...
+       }
+
+   If the red underline stays in VS Code, run
+   "TypeScript: Restart TS Server" (Ctrl+Shift+P).
+
+
+6. NEXT STEPS
+--------------------------------------------------------------
+1. Add models in prisma/schema.prisma, for example:
+
+       model User {
+         id    Int    @id @default(autoincrement())
+         email String @unique
+         name  String?
+       }
+
+2. Create and apply the first migration:
+
+       npx prisma migrate dev --name init
+
+3. Generate the Prisma Client (if migrate did not do it):
+
+       npx prisma generate
+
+4. Optional: view the data in the browser:
+
+       npx prisma studio
+
+
+7. QUICK COMMAND REFERENCE
+--------------------------------------------------------------
+    npx prisma --version          Show CLI and client versions
+    npx prisma init               Set up Prisma in the project
+    npx prisma migrate dev        Create and apply a migration
+    npx prisma generate           Generate the Prisma Client
+    npx prisma db pull            Read tables from an existing DB
+    npx prisma db push            Push schema to DB (no migration)
+    npx prisma studio             Open the visual data browser
+
+==============================================================

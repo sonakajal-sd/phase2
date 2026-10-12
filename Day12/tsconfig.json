@@ -3,14 +3,16 @@
     "module": "nodenext",
     "target": "esnext",
     "types": ["node"],
-    "noEmit": true,
+    "noEmit": false,
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "rootDir": ".",
+    "outDir": "./dist"
   },
   "include": ["src", "prisma", "tests", "prisma.config.ts"]
 }
