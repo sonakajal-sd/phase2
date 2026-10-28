@@ -1,0 +1,349 @@
+
+/* ===== Global Styles ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ===== App Layout ===== */
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: calc(100vh - 77px);
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+}
+
+.main-content > h2 {
+  margin: 0 0 20px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ===== Header ===== */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header-brand h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-actions button {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.header-actions button:hover {
+  background: #1d4ed8;
+}
+
+.user-avatar,
+.avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ===== Sidebar ===== */
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  min-height: calc(100vh - 77px);
+  padding: 24px 16px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Font Awesome renders icons as SVG elements */
+.sidebar li svg {
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.sidebar li:hover {
+  background: #f1f5f9;
+  color: #1d4ed8;
+}
+
+.sidebar li.active,
+.sidebar li:first-child {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+/* ===== Badges ===== */
+
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 4px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-completed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* ===== Project Cards ===== */
+
+.project-card {
+  padding: 22px;
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.project-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.project-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ===== Empty State ===== */
+
+.empty-state {
+  padding: 40px 20px;
+  margin-top: 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: #1e293b;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Issue card  */
+
+.issue-card{
+  padding: 20px;
+  margin-top:16px;
+  background:#ffff;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+}
+
+.issue-card-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap:12px;
+}
+
+.issue-card h3{
+  margin:0;
+  font-size:16px;
+  color:#2563eb;
+}
+.issue-card p{
+  margin: 12px 0 0;
+  color:#0f172a;
+  font-size:14px;
+  line-height: 1.6;
+}
+
+
+/* Component Gallery  */
+
+
+
+.component-gallery {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.component-gallery > h2 {
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.component-gallery > p {
+  margin-bottom: 28px;
+  color: #64748b;
+}
+
+.component-gallery section {
+  margin-bottom: 28px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.component-gallery section > h3 {
+  margin: 0 0 16px;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.gallery-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+/* ===== Responsive Layout ===== */
+
+@media (max-width: 600px) {
+  .header {
+    padding: 14px;
+  }
+
+  .header-brand h1 {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .header-actions button {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    padding: 12px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sidebar li {
+    gap: 8px;
+    margin-bottom: 0;
+    padding: 10px;
+  }
+
+  .main-content {
+    padding: 20px 16px;
+  }
+
+  .main-content > h2 {
+    font-size: 22px;
+  }
+}

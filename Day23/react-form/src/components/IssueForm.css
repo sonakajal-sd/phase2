@@ -1,0 +1,100 @@
+.issue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-row {
+  display: flex;
+  gap: 16px;
+}
+
+.field-row > .field {
+  flex: 1;
+}
+
+.field label,
+.field legend {
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.field [aria-invalid="true"] {
+  border: 2px solid var(--error);
+}
+
+.optional,
+.required {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.field-hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.field-error {
+  margin: 0;
+  font-weight: 600;
+  color: var(--error);
+}
+
+.checkbox-group {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.checkbox label {
+  font-weight: 400;
+}
+
+.error-summary {
+  padding: 12px 16px;
+  border: 2px solid var(--error);
+  border-radius: 6px;
+  background: var(--error-bg);
+}
+
+.error-summary h3 {
+  margin: 0 0 8px;
+}
+
+.error-summary a {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 480px) {
+  .field-row {
+    flex-direction: column;
+  }
+}

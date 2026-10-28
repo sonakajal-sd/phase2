@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+  color: #5b2a86;
+  background: linear-gradient(135deg, #ffd6ec, #e0c3fc, #c2f0ff, #c8ffe0, #fff5c2);
+  background-attachment: fixed;
+  min-height: 100vh;
+}

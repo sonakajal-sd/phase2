@@ -1,0 +1,89 @@
+:root {
+  --text: #1f2933;
+  --muted: #52606d;
+  --border: #9aa5b1;
+  --primary: #2251cc;
+  --error: #b42318;
+  --error-bg: #fef3f2;
+  --focus: #f9a825;
+  --bg: #ffffff;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #fff;
+  color: var(--primary);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* A clear focus ring so keyboard users always see where they are. */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.status-message:empty {
+  display: none;
+}
+
+.status-message {
+  padding: 8px 12px;
+  border-left: 4px solid green;
+  background: #ecfdf3;
+}
+
+.issue-list {
+  list-style: none;
+  padding: 0;
+}
+
+.issue-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e4e7eb;
+}
+
+.issue-list p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+/* Hidden on screen but still read by screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

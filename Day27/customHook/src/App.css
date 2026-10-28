@@ -1,0 +1,12 @@
+main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+select,
+input {
+  margin-right: 10px;
+  padding: 6px;
+}
