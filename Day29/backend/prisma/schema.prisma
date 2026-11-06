@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  user
+  admin
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(user)
+  sessions     Session[]
+  issues       Issue[]
+  createdAt    DateTime  @default(now())
+}
+
+// One row per logged-in browser.
+// The session id is stored in an httpOnly cookie.
+model Session {
+  id        String   @id
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+enum IssueStatus {
+  open
+  in_progress
+  closed
+}
+
+model Issue {
+  id        Int         @id @default(autoincrement())
+  title     String
+  status    IssueStatus @default(open)
+  authorId  Int
+  author    User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+}
